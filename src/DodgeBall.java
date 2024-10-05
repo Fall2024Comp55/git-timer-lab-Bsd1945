@@ -45,6 +45,7 @@ public class DodgeBall extends GraphicsProgram implements ActionListener {
 		addMouseListeners();
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		numTimes++;
 		moveAllBallsOnce();
@@ -66,6 +67,7 @@ public class DodgeBall extends GraphicsProgram implements ActionListener {
 		}
 	}
 	
+	@Override
 	public void mousePressed(MouseEvent e) {
 		for(GOval b:balls) {
 			if(b.getX() < SIZE * 2.5) {

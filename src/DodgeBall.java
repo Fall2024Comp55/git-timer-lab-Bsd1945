@@ -20,6 +20,7 @@ public class DodgeBall extends GraphicsProgram implements ActionListener {
 	private Timer movement;
 	private RandomGenerator rgen;
 	private int numTimes;
+	private int numDefeatedEnemies;
 	
 	public static final int SIZE = 25;
 	public static final int SPEED = 2;
@@ -33,8 +34,10 @@ public class DodgeBall extends GraphicsProgram implements ActionListener {
 		balls = new ArrayList<GOval>();
 		enemies = new ArrayList<GRect>();
 		numTimes = -1;
+		numDefeatedEnemies = 0;
 		
-		text = new GLabel(""+enemies.size(), 0, WINDOW_HEIGHT);
+		//text = new GLabel(""+enemies.size(), 0, WINDOW_HEIGHT);
+		text = new GLabel(""+numDefeatedEnemies, 0, WINDOW_HEIGHT);
 		add(text);
 		
 		movement = new Timer(MS, this);
@@ -47,6 +50,20 @@ public class DodgeBall extends GraphicsProgram implements ActionListener {
 		moveAllBallsOnce();
 		if(numTimes % 40  == 0) addAnEnemy();
 		moveAllEnemiesOnce();
+		if(enemies.size() > MAX_ENEMIES) {
+			removeAll();
+			GLabel loseMessage = new GLabel("You lost-Score:" + numTimes);
+			loseMessage.setLocation((WINDOW_WIDTH -  text.getWidth()) / 2, (WINDOW_HEIGHT -  text.getHeight()) / 2);
+			add(loseMessage);
+			movement.stop();
+		} 
+		else if(numDefeatedEnemies == 100) {
+			removeAll();
+			GLabel winMessage = new GLabel("You won-Score:" + numTimes);
+			winMessage.setLocation((WINDOW_WIDTH -  text.getWidth()) / 2, (WINDOW_HEIGHT -  text.getHeight()) / 2);
+			add(winMessage);
+			movement.stop();
+		}
 	}
 	
 	public void mousePressed(MouseEvent e) {
@@ -74,7 +91,7 @@ public class DodgeBall extends GraphicsProgram implements ActionListener {
 	private void addAnEnemy() {
 		GRect e = makeEnemy(rgen.nextInt(0, WINDOW_HEIGHT-SIZE/2));
 		enemies.add(e);
-		text.setLabel("" + enemies.size());
+		//text.setLabel("" + enemies.size());
 		add(e);
 	}
 	
@@ -92,6 +109,8 @@ public class DodgeBall extends GraphicsProgram implements ActionListener {
 			if (check instanceof GRect) {
 				remove(check);
 				enemies.remove(check);
+				numDefeatedEnemies++;
+				text.setLabel("" + numDefeatedEnemies);
 			}
 		}
 	}

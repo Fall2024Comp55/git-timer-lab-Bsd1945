@@ -22,7 +22,7 @@ public class BallLauncher extends GraphicsProgram{
 	
 	public void run() {
 		balls = new ArrayList<GOval>();
-		t = new Timer(1000, this);
+		t = new Timer(MS, this);
 		t.start();
 		addMouseListeners();
 	}
@@ -41,7 +41,7 @@ public class BallLauncher extends GraphicsProgram{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		for(GOval ball : balls) {
+		for(GOval ball : balls)  {
 			ball.move(SPEED, 0);
 		}
 	}

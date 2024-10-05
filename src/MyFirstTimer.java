@@ -31,6 +31,7 @@ public class MyFirstTimer extends GraphicsProgram {
 		new MyFirstTimer().start();
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		numTimes++;
 		myLabel.setLabel("times called? " + numTimes);

@@ -43,6 +43,7 @@ public class BallLauncher extends GraphicsProgram{
 		return temp;
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		for(GOval ball : balls) {
 			ball.move(SPEED, 0);

@@ -28,6 +28,9 @@ public class BallLauncher extends GraphicsProgram{
 	}
 	
 	public void mousePressed(MouseEvent e) {
+		for(GOval b : balls) {
+			if(b.getX() < 100) return;
+		}
 		GOval ball = makeBall(SIZE/2, e.getY());
 		balls.add(ball);
 		add(ball);
@@ -41,9 +44,11 @@ public class BallLauncher extends GraphicsProgram{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		for(GOval ball : balls)  {
+		for(GOval ball : balls) {
 			ball.move(SPEED, 0);
+			//pause(MS);
 		}
+		//pause(MS);
 	}
 	
 	public static void main(String[] args) {
